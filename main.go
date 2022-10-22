@@ -40,6 +40,12 @@ type Choice struct {
 }
 
 func main() {
+	if len(os.Args) < 2 || os.Args[1] == "--help" {
+		fmt.Println("Usage: howto <prompt>")
+		fmt.Println("To use howto, pass it a prompt to complete. For example: `howto tar file without compression`")
+		return
+	}
+
 	httpkey := os.Getenv("OPENAI_API_KEY")
 	if httpkey == "" {
 		fmt.Println("OPENAI_API_KEY not set")
