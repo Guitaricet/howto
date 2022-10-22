@@ -13,7 +13,7 @@ Then you can move the binary to your path, e.g., `mv howto /usr/local/bin/`
 
 ## Environment variables
 
-You need to connect your OpenAI API key to the program. You can do this by setting the `OPENAI_API_KEY` environment variable.
+You need to connect your OpenAI API key to the program by setting the `OPENAI_API_KEY` environment variable. Get your OpenAI API key [here](https://beta.openai.com/docs/quickstart/add-your-api-key).
 
 ```bash
 OPENAI_API_KEY=<your_api_key>
