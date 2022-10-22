@@ -49,7 +49,9 @@ func main() {
 	httpkey := os.Getenv("OPENAI_API_KEY")
 	if httpkey == "" {
 		fmt.Println("OPENAI_API_KEY not set")
-		os.Exit(1)
+		fmt.Println("You can get an API key from https://beta.openai.com/docs/quickstart/add-your-api-key")
+		fmt.Println("Once you have an API key, set it in your environment with `export OPENAI_API_KEY=<your key>`")
+		return
 	}
 
 	// get env variable HOWTO_OPENAI_MODEL if it exists, else use code-davinci-002
