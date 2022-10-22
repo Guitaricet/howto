@@ -6,7 +6,8 @@ How to do bash commands you always forget. OpenAI-powered.
 ## Build from source
 
 ```bash
-go build ./howto.go
+go build .
+go install
 ```
 
 Then you can move the binary to your path, e.g., `mv howto /usr/local/bin/`
