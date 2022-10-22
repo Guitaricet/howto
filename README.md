@@ -22,7 +22,7 @@ Want to download the biggest Rick Astley's hit?
 youtube-dl -f 18 https://www.youtube.com/watch?v=dQw4w9WgXcQ
 ```
 
-It can also suggest how to be a nicer person
+Howto can also suggest how to be a nicer person
 ```bash
  % howto be a nicer person
 alias please='sudo'
