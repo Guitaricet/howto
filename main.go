@@ -41,6 +41,10 @@ type Choice struct {
 
 func main() {
 	httpkey := os.Getenv("OPENAI_API_KEY")
+	if httpkey == "" {
+		fmt.Println("OPENAI_API_KEY not set")
+		os.Exit(1)
+	}
 
 	// get env variable HOWTO_OPENAI_MODEL if it exists, else use code-davinci-002
 	modelName := os.Getenv("HOWTO_OPENAI_MODEL")
@@ -55,7 +59,7 @@ func main() {
 		input.WriteString(" ")
 	}
 
-	prompt := fmt.Sprintf("Bash command to %s:```", input)
+	prompt := fmt.Sprintf("Bash command to %s:```", input.String())
 	suffix := "```"
 
 	body := []byte(fmt.Sprintf(`{
@@ -90,6 +94,13 @@ func main() {
 	err = json.NewDecoder(resp.Body).Decode(&openaiResponse)
 	if err != nil {
 		fmt.Println("Error decoding response: ", err)
+	}
+
+	choices := openaiResponse.Choices
+	if len(choices) == 0 {
+		fmt.Println("OpenAI API disn't respont correctly. Did you correctly set you OPENAI_API_KEY?")
+		fmt.Println("Response: ", resp)
+		os.Exit(1)
 	}
 
 	command := openaiResponse.Choices[0].Text

@@ -6,11 +6,12 @@ How to do bash commands you always forget. OpenAI-powered.
 ## Build from source
 
 ```bash
-go build .
-go install
+go build
 ```
 
 Then you can move the binary to your path, e.g., `mv howto /usr/local/bin/`
+
+Or, if you have your `$GOPATH/bin` in your path, you can just run `go install .`
 
 ## Environment variables
 
