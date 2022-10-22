@@ -1,6 +1,9 @@
 # Howto
 Howto is a GPT-3/Codex-powered shell tool that allows you to talk with your shell in natural language.
 
+
+[![Howto demo](https://user-images.githubusercontent.com/2821124/197363019-b038d31e-fde0-45a5-b347-3e87e0c260a6.gif)](https://youtu.be/VwP9eZdTrGY)
+
 Forgot how to create a conda environment?
 ```bash
 % howto create conda env
