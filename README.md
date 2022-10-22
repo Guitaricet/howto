@@ -1,17 +1,49 @@
-# howto
-How to do bash commands you always forget. OpenAI-powered.
+# Howto
+Howto is a GPT-3/Codex-powered shell tool that allows you to talk with your shell in natural language.
+
+Forgot how to create a conda environment?
+```bash
+% howto create conda env
+conda create -n <env_name> python=3.6
+```
+
+Forgot how to add a new env to Jupyter?
+```bash
+% howto add kernel to jupyter
+python -m ipykernel install --user --name=
+```
+
+Want to download the biggest Rick Astley's hit?
+```bash
+% howto download youtube video for never give you up
+youtube-dl -f 18 https://www.youtube.com/watch?v=dQw4w9WgXcQ
+```
+
+It can also suggest how to be a nicer person
+```bash
+ % howto be a nicer person
+alias please='sudo'
+```
+
+It works by sending requests to [OpenAI API](http://openai.com/api/) and requires you to setup your own `OPENAI_API_TOKEN`.
 
 # Installation
 
-## Build from source
+## Option 1: Download the binary from Github
+
+Download the binary from the [releases page](https://github.com/Guitaricet/howto/releases).
+Then move the binary to your path, e.g., `mv howto /usr/local/bin/`
+
+## Option 2: Build from source
+
+If you have Go installed, you can build the binary from source.
 
 ```bash
 go build
 ```
+> if you have your `$GOPATH/bin` in your path, just run `go install .` to install the binary
 
-Then you can move the binary to your path, e.g., `mv howto /usr/local/bin/`
-
-Or, if you have your `$GOPATH/bin` in your path, you can just run `go install .`
+Then move the binary to your path, e.g., `mv howto /usr/local/bin/`
 
 ## Environment variables
 
