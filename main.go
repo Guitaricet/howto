@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -51,7 +52,7 @@ func main() {
 		fmt.Println("OPENAI_API_KEY not set")
 		fmt.Println("You can get an API key from https://beta.openai.com/docs/quickstart/add-your-api-key")
 		fmt.Println("Once you have an API key, set it in your environment with `export OPENAI_API_KEY=<your key>`")
-		return
+		os.Exit(1)
 	}
 
 	// get env variable HOWTO_OPENAI_MODEL if it exists, else use code-davinci-002
@@ -60,14 +61,8 @@ func main() {
 		modelName = "text-davinci-002"
 	}
 
-	// concatenate all args over spaces
-	var input bytes.Buffer
-	for i := 1; i < len(os.Args); i++ {
-		input.WriteString(os.Args[i])
-		input.WriteString(" ")
-	}
-
-	prompt := fmt.Sprintf("Bash command to %s:```", input.String())
+	input := strings.Join(os.Args[1:], " ")
+	prompt := fmt.Sprintf("Bash command to %s:```", input)
 	suffix := "```"
 
 	body := []byte(fmt.Sprintf(`{
@@ -84,7 +79,7 @@ func main() {
 	req, err := http.NewRequest("POST", "https://api.openai.com/v1/completions", bytes.NewBuffer(body))
 	if err != nil {
 		fmt.Println("Error creating request: ", err)
-		return
+		os.Exit(1)
 	}
 
 	req.Header.Set("Content-Type", "application/json")
@@ -92,16 +87,18 @@ func main() {
 
 	client := &http.Client{Timeout: time.Second * 10}
 	resp, err := client.Do(req)
-
 	if err != nil {
 		fmt.Println("Error making request: ", err)
+		os.Exit(1)
 	}
 
 	defer resp.Body.Close()
+
 	var openaiResponse OpenAiResponse
 	err = json.NewDecoder(resp.Body).Decode(&openaiResponse)
 	if err != nil {
 		fmt.Println("Error decoding response: ", err)
+		os.Exit(1)
 	}
 
 	choices := openaiResponse.Choices
@@ -113,10 +110,10 @@ func main() {
 
 	command := openaiResponse.Choices[0].Text
 	// if "```" in command, cut out everything after it
-	if index := bytes.Index([]byte(command), []byte("```")); index != -1 {
+	if index := strings.Index(command, suffix); index != -1 {
 		command = command[:index]
 	}
-	command = string(bytes.Trim([]byte(command), "\n"))
-
+	command = strings.Trim(command, "\n")
+	
 	fmt.Println(command)
 }
