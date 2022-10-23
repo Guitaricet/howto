@@ -36,7 +36,7 @@ It works by sending requests to [OpenAI API](http://openai.com/api/) and require
 
 | OS | Architecture | Link |
 | --- | --- | --- |
-| Linux | x86_64 | [howto-linux-x86_64](https://github.com/Guitaricet/howto/releases/download/v1.0.1/howto-v1.0.1-linux-arm64.tar.gz) |
+| Linux | x86_64 | [howto-linux-x86_64](https://github.com/Guitaricet/howto/releases/download/v1.0.1/howto-v1.0.1-linux-386.tar.gz) |
 | MacOS | x86_64 (Intel) | [howto-darwin-x86_64](https://github.com/Guitaricet/howto/releases/download/v1.0.1/howto-v1.0.1-darwin-amd64.tar.gz) |
 | MacOS | arm64 (M1) | [howto-darwin-arm64](https://github.com/Guitaricet/howto/releases/download/v1.0.1/howto-v1.0.1-darwin-arm64.tar.gz) |
 | Windows | x86_64 | [howto-windows-x86_64](https://github.com/Guitaricet/howto/releases/download/v1.0.1/howto-v1.0.1-windows-amd64.zip) |
