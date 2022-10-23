@@ -49,7 +49,7 @@ tar -xvf howto-v1.0.1-darwin-amd64.tar.gz
 mv howto /usr/local/bin/
 ```
 
-> moving the binary to `/usr/local/bin` can require
+> moving the binary to `/usr/local/bin` can require sudo rights
 
 ## Option 2: Build from source
 
