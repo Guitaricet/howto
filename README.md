@@ -34,8 +34,22 @@ It works by sending requests to [OpenAI API](http://openai.com/api/) and require
 
 ## Option 1: Download the binary from Github
 
-Download the binary from the [releases page](https://github.com/Guitaricet/howto/releases).
-Then move the binary to your path, e.g., `mv howto /usr/local/bin/`
+| OS | Architecture | Link |
+| --- | --- | --- |
+| Linux | x86_64 | [howto-linux-x86_64](https://github.com/Guitaricet/howto/releases/download/v1.0.1/howto-v1.0.1-linux-arm64.tar.gz) |
+| MacOS | x86_64 (Intel) | [howto-darwin-x86_64](https://github.com/Guitaricet/howto/releases/download/v1.0.1/howto-v1.0.1-darwin-amd64.tar.gz) |
+| MacOS | arm64 (M1) | [howto-darwin-arm64](https://github.com/Guitaricet/howto/releases/download/v1.0.1/howto-v1.0.1-darwin-arm64.tar.gz) |
+| Windows | x86_64 | [howto-windows-x86_64](https://github.com/Guitaricet/howto/releases/download/v1.0.1/howto-v1.0.1-windows-amd64.zip) |
+
+Full list of architectures can be found on the [release page](https://github.com/Guitaricet/howto/releases/latest).
+
+Then untar it and add it to your `PATH`. For example:
+```bash
+tar -xvf howto-v1.0.1-darwin-amd64.tar.gz
+mv howto /usr/local/bin/
+```
+
+> moving the binary to `/usr/local/bin` can require
 
 ## Option 2: Build from source
 
