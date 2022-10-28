@@ -70,10 +70,10 @@ You need to connect your OpenAI API key to the program by setting the `OPENAI_AP
 export OPENAI_API_KEY=<your_api_key>
 ```
 
-By default we use `text-davinci-002`, you can change it to a different model by setting the `HOWTO_OPENAI_MODEL` environment variable. It's best to use Codex models (e.g., `code-davinci-002`), but they are currently in beta and not available to everyone.
+By default we use `text-davinci-002`, you can change it to a different model by setting the `HOWTO_OPENAI_MODEL` environment variable. It's best to use Codex models (e.g., `code-davinci-002`), but *code models are currently in beta and not available to everyone*.
 
 ```bash
-export HOWTO_OPENAI_MODEL=code-davinci-002
+export HOWTO_OPENAI_MODEL=<model_to_use>  # optional, default is text-davinci-002
 ```
 
 # Disclaimer

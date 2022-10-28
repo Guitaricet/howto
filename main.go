@@ -6,29 +6,10 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"runtime"
 	"strings"
 	"time"
 )
-
-// {
-//     "id": "cmpl-623HpLk0do5u61ZSmfvqkefqdyc2T",
-//     "object": "text_completion",
-//     "created": 1665947309,
-//     "model": "code-davinci-002",
-//     "choices": [
-//         {
-//             "text": "\nmore code\n\nmore code\n\nmore code\n\nmore code\n\nmore code",
-//             "index": 0,
-//             "logprobs": null,
-//             "finish_reason": "length"
-//         }
-//     ],
-//     "usage": {
-//         "prompt_tokens": 4,
-//         "completion_tokens": 256,
-//         "total_tokens": 260
-//     }
-// }
 
 type OpenAiResponse struct {
 	Id      string   `json:"intValue"`
@@ -40,10 +21,37 @@ type Choice struct {
 	Text string `json:"text"`
 }
 
+const VERSION = "1.0.3"
+
+func printEnvInfo() {
+	fmt.Println("Howto version: " + VERSION)
+	fmt.Println("OS: " + runtime.GOOS)
+
+	httpkey := os.Getenv("OPENAI_API_KEY")
+	if httpkey == "" {
+		fmt.Println("OpenAI API key: not set")
+	} else if httpkey[:3] == "sk-" {
+		fmt.Println("OpenAI API key: set")
+	} else {
+		fmt.Println("OpenAI API key: invalid (does not start with sk-)")
+	}
+
+	modelName := os.Getenv("HOWTO_OPENAI_MODEL")
+	if modelName == "" {
+		fmt.Println("OpenAI model: not set")
+	} else {
+		fmt.Println("OpenAI model: " + modelName)
+	}
+}
+
 func main() {
 	if len(os.Args) < 2 || os.Args[1] == "--help" {
 		fmt.Println("Usage: howto <prompt>")
 		fmt.Println("To use howto, pass it a prompt to complete. For example: `howto tar file without compression`")
+		return
+	}
+	if len(os.Args) < 2 || os.Args[1] == "--env" {
+		printEnvInfo()
 		return
 	}
 
@@ -114,6 +122,6 @@ func main() {
 		command = command[:index]
 	}
 	command = strings.Trim(command, "\n")
-	
+
 	fmt.Println(command)
 }
