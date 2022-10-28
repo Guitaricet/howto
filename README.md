@@ -36,10 +36,10 @@ It works by sending requests to [OpenAI API](http://openai.com/api/). Lookup [En
 
 | OS | Architecture | Link |
 | --- | --- | --- |
-| Linux | x86_64 | [howto-linux-x86_64](https://github.com/Guitaricet/howto/releases/download/v1.0.2/howto-v1.0.2-linux-386.tar.gz) |
-| MacOS | x86_64 (Intel) | [howto-darwin-x86_64](https://github.com/Guitaricet/howto/releases/download/v1.0.2/howto-v1.0.2-darwin-amd64.tar.gz) |
-| MacOS | arm64 (M1) | [howto-darwin-arm64](https://github.com/Guitaricet/howto/releases/download/v1.0.2/howto-v1.0.2-darwin-arm64.tar.gz) |
-| Windows | x86_64 | [howto-windows-x86_64](https://github.com/Guitaricet/howto/releases/download/v1.0.2/howto-v1.0.2-windows-amd64.zip) |
+| Linux | x86_64 | [howto-linux-x86_64](https://github.com/Guitaricet/howto/releases/download/v1.0.3/howto-v1.0.3-linux-386.tar.gz) |
+| MacOS | x86_64 (Intel) | [howto-darwin-x86_64](https://github.com/Guitaricet/howto/releases/download/v1.0.3/howto-v1.0.3-darwin-amd64.tar.gz) |
+| MacOS | arm64 (M1) | [howto-darwin-arm64](https://github.com/Guitaricet/howto/releases/download/v1.0.3/howto-v1.0.3-darwin-arm64.tar.gz) |
+| Windows | x86_64 | [howto-windows-x86_64](https://github.com/Guitaricet/howto/releases/download/v1.0.3/howto-v1.0.3-windows-amd64.zip) |
 
 Full list of architectures can be found on the [release page](https://github.com/Guitaricet/howto/releases/latest).
 
