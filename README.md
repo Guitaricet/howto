@@ -28,7 +28,7 @@ Howto can also suggest how to be a nicer person
 alias please='sudo'
 ```
 
-It works by sending requests to [OpenAI API](http://openai.com/api/) and requires you to setup your own `OPENAI_API_TOKEN`.
+It works by sending requests to [OpenAI API](http://openai.com/api/). Lookup [Environment Variables](https://github.com/Guitaricet/howto#environment-variables) section on how to set up the API key.
 
 # Installation
 
