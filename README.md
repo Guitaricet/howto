@@ -32,7 +32,16 @@ It works by sending requests to [OpenAI API](http://openai.com/api/). Lookup [En
 
 # Installation
 
-## Option 1: Download the binary from Github
+## Two-liner
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Guitaricet/howto/main/scripts/get_latest.sh)"
+sudo mv howto /usr/local/bin/  # howto.exe on windows
+```
+
+When first calling `howto` it will ask you to set up the API key. Get your OpenAI API key [here](https://beta.openai.com/docs/quickstart/add-your-api-key).
+
+## Download the binary from Github
 
 | OS | Architecture | Link |
 | --- | --- | --- |
@@ -51,30 +60,15 @@ mv howto /usr/local/bin/
 
 > moving the binary to `/usr/local/bin` can require sudo rights
 
-## Option 2: Build from source
+## Build from source
 
 If you have Go installed, you can build the binary from source.
 
 ```bash
 go build
 ```
-> if you have your `$GOPATH/bin` in your path, just run `go install .` to install the binary
 
 Then move the binary to your path, e.g., `mv howto /usr/local/bin/`
-
-## Environment variables
-
-You need to connect your OpenAI API key to the program by setting the `OPENAI_API_KEY` environment variable. Get your OpenAI API key [here](https://beta.openai.com/docs/quickstart/add-your-api-key).
-
-```bash
-export OPENAI_API_KEY=<your_api_key>
-```
-
-By default we use `text-davinci-002`, you can change it to a different model by setting the `HOWTO_OPENAI_MODEL` environment variable. It's best to use Codex models (e.g., `code-davinci-002`), but *code models are currently in beta and not available to everyone*.
-
-```bash
-export HOWTO_OPENAI_MODEL=<model_to_use>  # optional, default is text-davinci-002
-```
 
 # Disclaimer
 
