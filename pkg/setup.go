@@ -8,8 +8,7 @@ import (
 	"runtime"
 )
 
-func Setup(version string) {
-	fmt.Println("Welcome to howto!")
+func Setup(version string) error {
 	configPath := GetConfigPath()
 	// check if config file exists
 	_, err := os.Stat(configPath)
@@ -24,7 +23,7 @@ func Setup(version string) {
 		})
 		if response == "n" {
 			fmt.Println("Howto is all set up! Try `howto tar without compression`")
-			return
+			return nil
 		}
 	}
 
@@ -42,7 +41,7 @@ func Setup(version string) {
 		fmt.Println("OS: " + runtime.GOOS)
 		fmt.Println("Config path: " + configPath)
 		fmt.Println("Config dir: " + configDir)
-		os.Exit(1)
+		return err
 	}
 
 	openai_api_key := os.Getenv("OPENAI_API_KEY")
@@ -82,18 +81,18 @@ func Setup(version string) {
 		model = "gpt-3.5-turbo"
 	}
 
+	SetOpenAiApiKey(openai_api_key)
 	config := HowtoConfig{
 		Model:         model,
 		Shell:         shell,
 		MaxTokens:     512,
-		SystemMessage: "You are a CLI tool that converts user requests to shell commands. E.g. for `bash command to tar file without compression:`, you should reply `tar -cf file.tar file`.",
-		OpenAiApiKey:  openai_api_key,
+		SystemMessage: DEFAULT_SYSTEM_MESSAGE,
 	}
 
 	file, err := os.Create(configPath)
 	if err != nil {
 		fmt.Println("Error creating config file: " + err.Error())
-		os.Exit(1)
+		return err
 	}
 	defer file.Close()
 
@@ -102,13 +101,14 @@ func Setup(version string) {
 	err = encoder.Encode(config)
 	if err != nil {
 		fmt.Println("Error writing config file: " + err.Error())
-		os.Exit(1)
+		return err
 	}
 
 	fmt.Printf("\nSetup complete. Try `howto tar without compression`\n\n")
+	return nil
 }
 
-func ChangeSystemMessage() {
+func ChangeSystemMessage() error {
 	new_message := AskQuestion(QuestionOptions{
 		Question:        "What do you want the system message to be? ",
 		ValidationRegex: ".+",
@@ -118,15 +118,15 @@ func ChangeSystemMessage() {
 	config, err := GetConfig()
 	if err != nil {
 		fmt.Println("Error reading config file: " + err.Error())
-		os.Exit(1)
+		return err
 	}
 	config.SystemMessage = new_message
-	// save
+
 	configPath := GetConfigPath()
 	file, err := os.Create(configPath)
 	if err != nil {
 		fmt.Println("Error creating config file: " + err.Error())
-		os.Exit(1)
+		return err
 	}
 	defer file.Close()
 
@@ -135,8 +135,9 @@ func ChangeSystemMessage() {
 	err = encoder.Encode(config)
 	if err != nil {
 		fmt.Println("Error writing config file: " + err.Error())
-		os.Exit(1)
+		return err
 	}
 
 	fmt.Printf("\nSystem message changed to `%s`\n\n", new_message)
+	return nil
 }

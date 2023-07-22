@@ -14,11 +14,9 @@ const VERSION = "2.0.0-dev"
 
 func main() {
 	flag.Usage = func() {
-		fmt.Println("Howto Version " + VERSION)
-		fmt.Println("Howto is a command line tool that uses OpenAI API to help you write shell commands.")
-		fmt.Println("  Usage: howto <prompt>")
-		fmt.Println("  For example: " + howto.GetRandomUsageExample())
-		fmt.Println("Other commands:")
+		fmt.Println("Usage: howto <prompt>")
+		fmt.Println("To use howto, pass it a prompt to complete. For example: " + howto.GetRandomUsageExample())
+		fmt.Println("Options:")
 
 		flag.PrintDefaults()
 	}
@@ -28,10 +26,6 @@ func main() {
 	do_change_prompt := flag.Bool("change-prompt", false, "Change the system message prompt")
 	flag.Parse()
 
-	if *do_setup {
-		howto.Setup(VERSION)
-		return
-	}
 	if *do_config {
 		howto.PrintEnvInfo()
 		return
@@ -41,15 +35,16 @@ func main() {
 		return
 	}
 
-	_, err := os.Stat(howto.GetConfigPath())
-	if os.IsNotExist(err) {
-		fmt.Println("First time setup")
+	config, err := howto.GetConfig()
+
+	config_does_not_exist := os.IsNotExist(err)
+	if *do_setup || config_does_not_exist {
 		time.Sleep(1 * time.Second)
 		howto.Setup(VERSION)
+		return
 	}
 
-	config, err := howto.GetConfig()
-	if err != nil {
+	if err != nil && !config_does_not_exist {
 		fmt.Println("Error reading config file: " + err.Error())
 		response := howto.AskQuestion(howto.QuestionOptions{
 			Question:        "Do you want to delete your config file and run `howto --setup` again? (y/n) ",
@@ -63,6 +58,12 @@ func main() {
 	}
 
 	input := strings.Join(os.Args[1:], " ")
+
+	if len(input) == 0 {
+		fmt.Println("Usage: howto <prompt>")
+		fmt.Println("To use howto, pass it a prompt to complete. For example: " + howto.GetRandomUsageExample())
+		return
+	}
 
 	var command string
 	command, err = howto.GenerateShellCommandOpenAI(input, config)

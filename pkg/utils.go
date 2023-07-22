@@ -15,30 +15,12 @@ import (
 	"golang.org/x/term"
 )
 
-var examples = []string{
-	"howto tar without compression",
-	"howto oneline install conda",
-	"howto du -hs hidden files",
-	"howto donwload from gcp bucket",
-	"howto pull from upstream",
-	"howto push if the only update is the tag",
-	"howto get ubuntu version",
-	"howto undo make",
-	"howto connect to mongo running inside docker",
-	"howto check if something is running on my port 27017",
-	"howto get user id for user vlialin",
-	"howto create user vlialin with user IDs 5030 and GID 4030 and assign them a home directory in /mnt/shared_home",
-	"howto tree withiout node_modules",
-	"howto 'grep my zsh history and print all examples containing howto (with trailing space)'",
-}
-
 type HowtoConfig struct {
 	Version       string `json:"version"`
 	Model         string `json:"model"`
 	Shell         string `json:"shell"`
 	MaxTokens     int    `json:"max_tokens"`
 	SystemMessage string `json:"system_message"`
-	OpenAiApiKey  string `json:"openai_api_key"`
 }
 
 type HowToState struct {
@@ -73,8 +55,8 @@ func GetConfig() (HowtoConfig, error) {
 
 	configPath := GetConfigPath()
 	_, err := os.Stat(configPath)
-	if os.IsNotExist(err) {
-		return config, fmt.Errorf("config file %s does not exist", configPath)
+	if err != nil {
+		return config, err
 	}
 
 	file, err := os.Open(configPath)
@@ -96,13 +78,6 @@ func PrintConfig() {
 	if err != nil {
 		fmt.Println("Can't print config: " + err.Error())
 		return
-	}
-	if config.OpenAiApiKey == "" {
-		config.OpenAiApiKey = "not set"
-	} else if config.OpenAiApiKey[:3] != "sk-" {
-		config.OpenAiApiKey = "invalid (does not start with sk-)"
-	} else {
-		config.OpenAiApiKey = config.OpenAiApiKey[:3] + "..."
 	}
 	fmt.Println("Config:")
 
@@ -134,6 +109,7 @@ func AskQuestion(opts QuestionOptions) string {
 				continue
 			}
 			input = string(bytePassword)
+			fmt.Println()
 		} else {
 			reader := bufio.NewReader(os.Stdin)
 			input, _ = reader.ReadString('\n')
@@ -141,7 +117,7 @@ func AskQuestion(opts QuestionOptions) string {
 		}
 
 		if !isValidResponse(input, opts.ValidationRegex) {
-			fmt.Println("Please answer with one of the following expression: opts.ValidationRegex")
+			fmt.Println("\nInvalid choice, please try again. The answer should match: " + opts.ValidationRegex)
 			continue
 		}
 

@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"os"
 	"strings"
 	"time"
 )
@@ -53,7 +52,6 @@ func getBodyOpenAI(messages []OpenAiMessage, config HowtoConfig) (string, error)
 }
 
 // generateShellCommandAI makes the command via requesting generate from OpenAI
-// prompt example: "bash command to tar file without compression: ```[insert]```"
 func GenerateShellCommandOpenAI(inputString string, config HowtoConfig) (string, error) {
 	prompt := fmt.Sprintf("%s command to %s", config.Shell, inputString)
 	messages := []OpenAiMessage{
@@ -65,23 +63,29 @@ func GenerateShellCommandOpenAI(inputString string, config HowtoConfig) (string,
 
 	if err != nil {
 		fmt.Println("Error creating request body: " + err.Error())
-		os.Exit(1)
+		return "", err
 	}
 
 	req, err := http.NewRequest("POST", "https://api.openai.com/v1/chat/completions", strings.NewReader(body))
 	if err != nil {
 		fmt.Println("Error creating request: ", err)
-		os.Exit(1)
+		return "", err
+	}
+
+	api_key, err := GetOpenAiApiKey()
+	if err != nil {
+		fmt.Println("Error getting OpenAI API key: ", err)
+		return "", err
 	}
 
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+config.OpenAiApiKey)
+	req.Header.Set("Authorization", "Bearer "+api_key)
 
 	client := &http.Client{Timeout: time.Second * 10}
 	resp, err := client.Do(req)
 	if err != nil {
 		fmt.Println("Error making request: ", err)
-		os.Exit(1)
+		return "", err
 	}
 
 	defer resp.Body.Close()
@@ -90,7 +94,7 @@ func GenerateShellCommandOpenAI(inputString string, config HowtoConfig) (string,
 	err = json.NewDecoder(resp.Body).Decode(&openaiResponse)
 	if err != nil {
 		fmt.Println("Error decoding response: ", err)
-		os.Exit(1)
+		return "", err
 	}
 
 	choices := openaiResponse.Choices
@@ -98,7 +102,7 @@ func GenerateShellCommandOpenAI(inputString string, config HowtoConfig) (string,
 		fmt.Println("OpenAI API didn't respont correctly. Did you correctly set OPENAI_API_KEY?")
 		fmt.Println("Response body: ", string(body))
 		fmt.Println("Response: ", resp)
-		os.Exit(1)
+		return "", err
 	}
 
 	command := openaiResponse.Choices[0].Message.Content
