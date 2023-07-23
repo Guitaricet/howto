@@ -91,7 +91,9 @@ func Setup(version string) error {
 		model = "gpt-3.5-turbo"
 	}
 
-	SetOpenAiApiKey(openai_api_key)
+	if runtime.GOOS == "darwin" {
+		SetOpenAiApiKey(openai_api_key)
+	}
 	config := HowtoConfig{
 		Model:         model,
 		Shell:         shell,
