@@ -41,6 +41,8 @@ sudo mv howto /usr/local/bin/  # howto.exe on windows
 
 When first calling `howto` it will ask you to set up the API key. Get your OpenAI API key [here](https://beta.openai.com/docs/quickstart/add-your-api-key).
 
+> If you get `org.freedesktop.secrets` error, install Gnome-keyring `sudo apt-get install gnome-keyring`. It is needed for secure API key storage.
+
 ## Download the binary from Github
 
 | OS | Architecture | Link |
