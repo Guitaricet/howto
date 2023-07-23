@@ -7,10 +7,10 @@ import (
 	"log"
 	"math/rand"
 	"os"
+	"path/filepath"
 	"regexp"
 	"runtime"
 	"strings"
-	"time"
 
 	"golang.org/x/term"
 )
@@ -23,13 +23,6 @@ type HowtoConfig struct {
 	SystemMessage string `json:"system_message"`
 }
 
-type HowToState struct {
-	Version      string            `json:"version"`
-	Cache        map[string]string `json:"cache"`
-	Conversation []string          `json:"conversation"`
-	LastWarning  time.Time         `json:"lastWarning"`
-}
-
 type QuestionOptions struct {
 	Question        string
 	ValidationRegex string
@@ -37,27 +30,26 @@ type QuestionOptions struct {
 }
 
 func GetRandomUsageExample() string {
-	rand.Seed(time.Now().Unix())
 	example := examples[rand.Intn(len(examples))]
 	return example
 }
 
-func GetConfigPath() string {
+func GetHowtoDir() string {
 	if runtime.GOOS == "windows" {
-		return os.Getenv("APPDATA") + "\\howto\\config.json"
+		return filepath.Join(os.Getenv("APPDATA"), "howto")
 	} else {
-		return os.Getenv("HOME") + "/.howto/config.json"
+		return filepath.Join(os.Getenv("HOME"), ".howto")
 	}
+}
+
+func GetConfigPath() string {
+	return filepath.Join(GetHowtoDir(), "config.json")
 }
 
 func GetConfig() (HowtoConfig, error) {
 	var config HowtoConfig
 
 	configPath := GetConfigPath()
-	_, err := os.Stat(configPath)
-	if err != nil {
-		return config, err
-	}
 
 	file, err := os.Open(configPath)
 	if err != nil {

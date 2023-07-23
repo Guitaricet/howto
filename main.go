@@ -66,7 +66,7 @@ func main() {
 	}
 
 	var command string
-	command, err = howto.GenerateShellCommandOpenAI(input, config)
+	command, err = howto.GenerateShellCommand(input, config)
 
 	if err != nil {
 		fmt.Println("Error generating command: " + err.Error())

@@ -52,13 +52,7 @@ func getBodyOpenAI(messages []OpenAiMessage, config HowtoConfig) (string, error)
 }
 
 // generateShellCommandAI makes the command via requesting generate from OpenAI
-func GenerateShellCommandOpenAI(inputString string, config HowtoConfig) (string, error) {
-	prompt := fmt.Sprintf("%s command to %s", config.Shell, inputString)
-	messages := []OpenAiMessage{
-		{Role: "system", Content: config.SystemMessage},
-		{Role: "user", Content: prompt},
-	}
-
+func GenerateShellCommandOpenAI(messages []OpenAiMessage, config HowtoConfig) (string, error) {
 	body, err := getBodyOpenAI(messages, config)
 
 	if err != nil {
