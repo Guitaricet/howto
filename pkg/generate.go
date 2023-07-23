@@ -19,10 +19,6 @@ func GenerateShellCommand(command string, config HowtoConfig) (string, error) {
 
 	time_delta := time.Since(state.LastConversationUpdate)
 	if time_delta.Minutes() <= 1 {
-		for _, message := range state.Conversation {
-			fmt.Printf("%s: %s\n", message.Role, message.Content)
-		}
-
 		messages = append(messages, state.Conversation...)
 		// we append command, because prompt does not make sense in a conversation-style request
 		messages = append(messages, OpenAiMessage{Role: "user", Content: command})
