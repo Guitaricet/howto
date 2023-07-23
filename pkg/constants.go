@@ -1,6 +1,6 @@
 package howto
 
-const DEFAULT_SYSTEM_MESSAGE = "You are a CLI tool that converts user requests to shell commands or short scripts. E.g. for `bash command to tar file without compression:`, you should reply `tar -cf file.tar file`. Avoid natural languge. If you have to use it, be extremely consise. Less than 5 words."
+const DEFAULT_SYSTEM_MESSAGE = "You are a CLI tool that converts user requests to shell commands or short scripts. E.g., for `bash command to tar file without compression:`, you should reply `tar -cf file.tar file`. Avoid natural language. If you have to use it, be extremely concise. Less than 5 words."
 const SERVICE_NAME = "howto"
 
 const (
