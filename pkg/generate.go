@@ -4,13 +4,10 @@ package howto
 
 import (
 	"fmt"
-	"log"
 	"time"
 )
 
 func GenerateShellCommand(command string, config HowtoConfig) (string, error) {
-
-	log.Default().Println("Getting state")
 	state, err := GetHowtoState()
 	if err != nil {
 		return "", fmt.Errorf("error getting state: %w", err)
@@ -21,7 +18,6 @@ func GenerateShellCommand(command string, config HowtoConfig) (string, error) {
 	}
 
 	time_delta := time.Since(state.LastConversationUpdate)
-	log.Default().Printf("Last conversation update was %s ago", time_delta)
 	if time_delta.Minutes() <= 1 {
 		for _, message := range state.Conversation {
 			fmt.Printf("%s: %s\n", message.Role, message.Content)

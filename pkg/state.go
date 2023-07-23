@@ -45,7 +45,6 @@ func InitializeState() error {
 	}
 
 	err = state.Save(GetStatePath())
-	log.Default().Println("Initialized and saved state")
 	if err != nil {
 		log.Fatalf("Error saving state: %s", err)
 		return fmt.Errorf("error saving state: %w", err)
@@ -85,7 +84,6 @@ func (h HowToState) Save(savePath string) error {
 	encoder := json.NewEncoder(file)
 	encoder.SetIndent("", "  ")
 
-	log.Default().Printf("Saving state: %+v to %s", h, file.Name())
 	err = encoder.Encode(h)
 	if err != nil {
 		return fmt.Errorf("could not encode state: %w", err)
