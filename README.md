@@ -56,7 +56,7 @@ Full list of architectures can be found on the [release page](https://github.com
 
 Then untar it and add it to your `PATH`. For example:
 ```bash
-tar -xvf howto-v1.0.1-darwin-amd64.tar.gz
+tar -xvf howto-v2.0.1-darwin-amd64.tar.gz
 mv howto /usr/local/bin/
 ```
 
