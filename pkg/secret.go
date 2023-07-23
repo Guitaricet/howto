@@ -3,6 +3,7 @@ package howto
 import (
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/zalando/go-keyring"
 )
@@ -27,8 +28,9 @@ func GetOpenAiApiKey() (string, error) {
 	}
 
 	if err != nil {
-		log.Fatal(err)
-		return "", err
+		// many issues on Linux, so try to get it from the environment
+		secret = os.Getenv("OPENAI_API_KEY")
+		return secret, nil
 	}
 
 	// check if it's valid

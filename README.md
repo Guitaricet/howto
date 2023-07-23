@@ -47,10 +47,10 @@ When first calling `howto` it will ask you to set up the API key. Get your OpenA
 
 | OS | Architecture | Link |
 | --- | --- | --- |
-| Linux | x86_64 | [howto-linux-x86_64](https://github.com/Guitaricet/howto/releases/download/v2.0.0/howto-v2.0.0-linux-386.tar.gz) |
-| MacOS | x86_64 (Intel) | [howto-darwin-x86_64](https://github.com/Guitaricet/howto/releases/download/v2.0.0/howto-v2.0.0-darwin-amd64.tar.gz) |
-| MacOS | arm64 (M1) | [howto-darwin-arm64](https://github.com/Guitaricet/howto/releases/download/v2.0.0/howto-v2.0.0-darwin-arm64.tar.gz) |
-| Windows | x86_64 | [howto-windows-x86_64](https://github.com/Guitaricet/howto/releases/download/v2.0.0/howto-v2.0.0-windows-amd64.zip) |
+| Linux | x86_64 | [howto-linux-x86_64](https://github.com/Guitaricet/howto/releases/download/v2.0.1/howto-v2.0.1-linux-386.tar.gz) |
+| MacOS | x86_64 (Intel) | [howto-darwin-x86_64](https://github.com/Guitaricet/howto/releases/download/v2.0.1/howto-v2.0.1-darwin-amd64.tar.gz) |
+| MacOS | arm64 (M1) | [howto-darwin-arm64](https://github.com/Guitaricet/howto/releases/download/v2.0.1/howto-v2.0.1-darwin-arm64.tar.gz) |
+| Windows | x86_64 | [howto-windows-x86_64](https://github.com/Guitaricet/howto/releases/download/v2.0.1/howto-v2.0.1-windows-amd64.zip) |
 
 Full list of architectures can be found on the [release page](https://github.com/Guitaricet/howto/releases/latest).
 

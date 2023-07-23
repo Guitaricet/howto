@@ -47,20 +47,30 @@ func Setup(version string) error {
 	openai_api_key := os.Getenv("OPENAI_API_KEY")
 	if openai_api_key != "" {
 		fmt.Println("Detected OPENAI_API_KEY environment variable.")
-		response := AskQuestion(QuestionOptions{
-			Question:        "Do you want to use your OPENAI_API_KEY with howto? (y/n) ",
-			ValidationRegex: "y|n",
-			Secure:          false,
-		})
-		if response == "y" {
-			fmt.Println("Setting OPNEAI_API_KEY in config file")
-		} else {
-			openai_api_key = AskQuestion(QuestionOptions{
-				Question:        "Please enter your OpenAI API key: ",
-				ValidationRegex: "sk-[a-zA-Z0-9]{32}",
-				Secure:          true,
+		if runtime.GOOS == "darwin" {
+			// if MacOS, use keychain
+			response := AskQuestion(QuestionOptions{
+				Question:        "Do you want to use your OPENAI_API_KEY with howto? (y/n) ",
+				ValidationRegex: "y|n",
+				Secure:          false,
 			})
+			if response == "y" {
+				fmt.Println("Setting OPNEAI_API_KEY in keychain")
+			} else {
+				openai_api_key = AskQuestion(QuestionOptions{
+					Question:        "Please enter your OpenAI API key: ",
+					ValidationRegex: "sk-[a-zA-Z0-9]{32}",
+					Secure:          true,
+				})
+			}
+		} else {
+			fmt.Println("OPENAI_API_KEY will be used with howto")
 		}
+	}
+
+	if openai_api_key == "" {
+		fmt.Println("Please set your OpenAI API key to OPENAI_API_KEY environment variable. You can get it from https://beta.openai.com/account/api-keys")
+		os.Exit(1)
 	}
 
 	shell := AskQuestion(QuestionOptions{
