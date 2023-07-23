@@ -7,6 +7,12 @@ elif [[ "$(uname)" == "Linux" ]]; then
     PLATFORM="linux"
 elif [[ "$(uname)" =~ "MINGW" ]]; then
     PLATFORM="windows"
+    echo "Sorry, we don't have pre-built binaries for Windows yet, but it's very simple to build howto from source!"
+    echo "git clone https://github.com/Guitaricet/howto"
+    echo "cd howto"
+    echo "go build"
+    echo "If you don't have Go installed, follow https://go.dev for instrucitons"
+    exit 1
 else
     echo "Unsupported platform: $(uname)"
     exit 1
@@ -14,7 +20,7 @@ fi
 
 # Determine the architecture
 if [[ "$(uname -m)" == "x86_64" ]]; then
-    ARCH="x86_64"
+    ARCH="386"
 elif [[ "$(uname -m)" == "arm64" ]]; then
     ARCH="arm64"
 else
