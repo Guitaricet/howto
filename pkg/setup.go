@@ -95,6 +95,7 @@ func Setup(version string) error {
 		SetOpenAiApiKey(openai_api_key)
 	}
 	config := HowtoConfig{
+		Version:       version,
 		Model:         model,
 		Shell:         shell,
 		MaxTokens:     512,
