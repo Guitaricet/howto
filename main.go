@@ -10,7 +10,7 @@ import (
 	howto "github.com/guitaricet/howto/pkg"
 )
 
-const VERSION = "2.0.0-dev"
+const VERSION = "2.0.1"
 
 func main() {
 	flag.Usage = func() {
